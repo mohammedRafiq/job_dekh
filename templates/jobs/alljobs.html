@@ -1,0 +1,55 @@
+{% extends 'index.html' %}
+{% load widget_tweaks %}
+{% block carousel %}
+{% endblock %}
+{% block search %}
+{% endblock %}
+{% block content %}
+
+{% if jobs.has_other_pages %}
+<ul class="pagination">
+ {% if jobs.has_previous %}
+   <li><a href="?page={{ jobs.previous_page_number }}">&laquo;</a></li>
+ {% else %}
+   <li class="disabled"><span>&laquo;</span></li>
+ {% endif %}
+ {% for i in jobs.paginator.page_range %}
+   {% if jobs.number == i %}
+     <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+   {% else %}
+     <li><a href="?page={{ i }}">{{ i }}</a></li>
+   {% endif %}
+ {% endfor %}
+ {% if jobs.has_next %}
+   <li><a href="?page={{ jobs.next_page_number }}">&raquo;</a></li>
+ {% else %}
+   <li class="disabled"><span>&raquo;</span></li>
+ {% endif %}
+</ul>
+{% endif %}
+
+   <div class="container">
+
+     <ul class="list-unstyled">
+     {% for job in jobs %}
+     <li class="media">
+      <div class="media-body">
+         <h5 class="mt-0 mb-1">{{job.title}} ({{job.years_of_experience}})</h5>
+         <h5 class="mt-0 mb-1">{{job.employer}}</h5>
+          <pre>{{job.description|truncatechars:100}}</pre>
+
+          <button type="submit" class="btn btn-primary" onclick="location.href='{% url 'jobs:job' job.id %}'"> Job Description
+          </button>
+
+          <button type="submit" class="btn btn-primary"  style="margin-left:1.5em" onclick="location.href='{% url 'others:all_news' %}'">Apply Job
+          </button>
+      </li>
+      <hr>
+           {% endfor %}
+    </ul>
+
+   </div>
+
+
+
+{% endblock %}

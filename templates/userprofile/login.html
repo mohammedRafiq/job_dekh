@@ -1,0 +1,42 @@
+{% extends 'index.html' %}
+{% load widget_tweaks %}
+{% block carousel %}
+{% endblock %}
+{% block search %}
+{% endblock %}
+{% block content %}
+  <div class="container" align="center">
+    <form method="POST">
+        {% csrf_token %}
+        {% if form.errors %}
+          <p style="color:red">Your username and password didn't match. Please try again.</p>
+        {% endif %}
+        <p>
+            <label>Username</label>
+            <input type="text" name="username">
+        </p>
+        <p>
+            <label>Password</label>
+            <input type="password" name="password">
+        </p>
+
+
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+        &nbsp&nbsp&nbsp&nbsp
+        &nbsp&nbsp&nbsp<button type="login" class="btn btn-primary">Login</button>
+        <p></p>
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+          <a href="{% url 'userprofile:registration' %}" style="color:black">Create an account ?</a>
+
+        <p></p>
+          {% if username|length > 0 %}
+          <div class="alert alert-success alert-dismissible fade in">
+                  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>{{username}}</strong> registered successfully !!!
+          </div>
+          {% endif %}
+
+    </form>
+
+  </div>
+{% endblock %}
